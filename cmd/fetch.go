@@ -14,9 +14,10 @@ const (
 )
 
 func main() {
-	day := flag.Int("day", 0, "The day to fetch")
+	d := flag.Int("day", 0, "The day to fetch")
 	flag.Parse()
-	if *day == 0 {
+	day := *d
+	if day == 0 {
 		log.Fatalf("--day is required")
 	}
 	cookie := os.Getenv(COOKIE_ENV_NAME)
@@ -24,7 +25,7 @@ func main() {
 		log.Fatalf("%s environment variable not set", COOKIE_ENV_NAME)
 	}
 
-	url := fmt.Sprintf("%s/2023/day/%d/input", BASE_URL, *day)
+	url := fmt.Sprintf("%s/2023/day/%d/input", BASE_URL, day)
 	log.Printf("about to fetch %s", url)
 
 	req, err := http.NewRequest("GET", url, nil)
@@ -45,7 +46,7 @@ func main() {
 
 	log.Printf("successfully fetched %s", url)
 
-	path := fmt.Sprintf("pkg/%02d/input.txt", *day)
+	path := fmt.Sprintf("pkg/%02d/input.txt", day)
 	f, err := os.Create(path)
 	if err != nil {
 		log.Fatalf("failed to create file at %s: %v", path, err)
@@ -56,7 +57,7 @@ func main() {
 			log.Fatalf("failed to close file at %s: %v", path, err)
 		}
 
-		log.Printf("written day %02d to %s", *day, path)
+		log.Printf("written day %02d to %s", day, path)
 	}()
 
 	_, err = f.ReadFrom(resp.Body)
