@@ -86,7 +86,7 @@ humidity-to-location map:
 	if err != nil {
 		t.Fatal(err)
 	}
-	if total != 4 {
+	if total != 46 {
 		t.Fatalf("expected 46, got %d", total)
 	}
 }
