@@ -6,3 +6,7 @@ test day:
 
 fetch day:
     go run cmd/fetch.go --day {{day}}
+
+template day:
+    cp -r ./template ./pkg/$(printf "%02.0f" {{day}})
+    just fetch {{day}}
