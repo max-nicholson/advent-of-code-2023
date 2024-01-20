@@ -15,3 +15,11 @@ func Max(a int, b int) int {
 
 	return b
 }
+
+func Sum(values []int) int {
+	var acc int
+	for _, v := range values {
+		acc += v
+	}
+	return acc
+}
